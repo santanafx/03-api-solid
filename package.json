@@ -1,0 +1,38 @@
+{
+  "name": "03-api-solid",
+  "version": "1.0.0",
+  "description": "- [ ] deve ser possivel se cadastrar - [ ] deve ser possivel se autenticar - [ ] deve ser possivel obter o perfil de um usuario logado - [ ] deve ser possivel obter o numero de check ins realizados pelo usuario logado - [ ] deve ser possivel o usuario obter seu historico de check ins - [ ] deve ser possivel o usuario buscar academias proximas - [ ] deve ser possivel o usuario buscar academias pelo nome - [ ] deve ser possivel o usuario realizar check in em uma academia - [ ] deve ser possivel validar o check in de um usuario - [ ] deve ser possivel cadastrar uma academia",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "prod": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/express": "^5.0.6",
+    "@types/node": "25.2.3",
+    "@types/pg": "8.16.0",
+    "eslint": "10.0.0",
+    "eslint-plugin-import": "2.32.0",
+    "globals": "17.3.0",
+    "prisma": "7.4.0",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "8.55.0"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.4.0",
+    "@prisma/client": "7.4.0",
+    "dotenv": "17.3.1",
+    "eslint-config-airbnb-base": "15.0.0",
+    "express": "^5.2.1",
+    "pg": "8.18.0",
+    "zod": "4.3.6"
+  }
+}
