@@ -1,8 +1,7 @@
-import { Response, Request } from 'express'
+import type { Response, Request } from 'express'
 import z from "zod"
 import { UserAlreadyExistsError } from '../../../application/errors/userAlreadyExistsError.js'
-import { RegisterUserUseCase } from '../../../application/useCases/registerUserUseCase/registerUserUseCase.js'
-import { UserRepository } from '../../../infrastructure/database/repositories/userRepository.js'
+import { makeRegisterUserUseCase } from '../../../application/useCases/factories/makeRegisterUserUseCase.js'
 
 
 
@@ -16,8 +15,7 @@ export async function registerUserController(req: Request, res: Response) {
   const { name, email, password } = registerUserSchema.parse(req.body)
 
   try {
-    const useRepository = new UserRepository()
-    const registerUserUseCase = new RegisterUserUseCase(useRepository)
+    const registerUserUseCase = makeRegisterUserUseCase()
     await registerUserUseCase.execute({ name, email, password })
   } catch (err) {
     if (err instanceof UserAlreadyExistsError) {
