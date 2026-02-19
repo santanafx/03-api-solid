@@ -27,6 +27,8 @@
 - [ ] todas listas dos dados precisam estar paginadas com 20 itens por pagina
 - [ ] o usuario deve ser identificado por um jwt
 
+### Os testes devem testar cada item de RN, RF e RNF
+
 ### tecnica da narrativa
 
 1- substantivos = entidades
@@ -57,7 +59,14 @@ npm i zod
 npm init @eslint/config@latest --legacy-peer-deps
 npm install prisma @types/node @types/pg --save-dev --legacy-peer-deps
 npm install @prisma/client @prisma/adapter-pg pg dotenv --legacy-peer-deps
+npm install bcryptjs --legacy-peer-deps
+npm install @types/bycriptjs
 npx prisma init
 npx prisma generate
 
 npx prisma migrate dev
+
+### observacoes
+
+1- useCase somente orquestra fluxo
+2- repository pattern serve para colocar tudo que envolve prisma no meu caso dentro de intrasctructure, se eu quiser trocar prisma por typeorm eu so vou mexer no repository

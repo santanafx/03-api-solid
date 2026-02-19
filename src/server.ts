@@ -1,38 +1,37 @@
 import 'dotenv/config'
 import express from 'express'
+import type { Request, Response, NextFunction } from 'express'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '../prisma/generated/client.js'
-import z from 'zod'
+import { appRoutes } from './presentation/controllers/routes.js'
+import { ZodError } from 'zod'
 
 export const app = express()
 
 app.use(express.json())
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
-const prisma = new PrismaClient({
+export const prisma = new PrismaClient({
   adapter,
   log: process.env.NODE_ENV === 'dev' ? ['query'] : []
 })
 
-app.post("/user", async (req, res) => {
-  const registerUserSchema = z.object({
-    name: z.string().min(1),
-    email: z.email(),
-    password: z.string().min(6)
-  })
+appRoutes(app);
 
-  const { name, email, password } = registerUserSchema.parse(req.body)
-
-  await prisma.user.create({
-    data: {
-      name: name,
-      email: email,
-      password_hash: password
-    }
+app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
+  if (error instanceof ZodError) {
+    return res.status(400).send({
+      message: 'Validation error.', issues: error.format()
+    })
   }
-  )
 
-  return res.status(200).send()
-})
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(error)
+  } else {
+    //TODO adicionar alguma ferramenta de observabilidade
+  }
+
+  return res.status(500).send({ message: 'Internal server error.' })
+});
 
 app.listen(process.env.PORT || 3333)
