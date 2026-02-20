@@ -16,9 +16,12 @@ export async function autenticateUserController(req: Request, res: Response) {
     const autenticateUserUseCase = makeAutenticateUserUseCase()
     const { user } = await autenticateUserUseCase.execute(email, password)
 
-    // Gera o token JWT com o id do usuário
+    // Gera o token JWT com o id e role do usuário
     const token = jwt.sign(
-      { sub: user.id }, // sub = subject (id do usuário)
+      {
+        sub: user.id, // sub = subject (id do usuário)
+        role: user.role // role do usuário
+      },
       process.env.JWT_SECRET || 'secret',
       { expiresIn: '7d' } // token expira em 7 dias
     )
