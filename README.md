@@ -60,7 +60,7 @@ npm init @eslint/config@latest --legacy-peer-deps
 npm install prisma @types/node @types/pg --save-dev --legacy-peer-deps
 npm install @prisma/client @prisma/adapter-pg pg dotenv --legacy-peer-deps
 npm install bcryptjs --legacy-peer-deps
-npm install @types/bycriptjs
+npm install @types/bcryptjs
 npx prisma init
 npx prisma generate
 
